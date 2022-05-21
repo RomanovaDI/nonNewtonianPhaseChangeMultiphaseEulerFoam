@@ -58,7 +58,6 @@ protected:
         const dictionary& interfaceDict_;
         const phaseModel& phase1_;
         const phaseModel& phase2_;
-		dictionary massTransferModelCoeffs_;
 //        dimensionedScalar residualPhaseFraction_;
 //        dimensionedScalar residualSlip_;
 
@@ -88,8 +87,7 @@ public:
 
         massTransferModel
         (
-		 	const word& type,
-            const dictionary& dict,
+            const dictionary& interfaceDict,
             const phaseModel& phase1,
             const phaseModel& phase2
         );
@@ -103,7 +101,7 @@ public:
 
         static autoPtr<massTransferModel> New
         (
-            const dictionary& dict,
+            const dictionary& intefaceDict,
             const phaseModel& phase1,
             const phaseModel& phase2
         );

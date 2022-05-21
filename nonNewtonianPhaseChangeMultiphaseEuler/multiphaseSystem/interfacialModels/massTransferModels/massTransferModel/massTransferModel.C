@@ -41,16 +41,14 @@ namespace Foam
 
 Foam::massTransferModel::massTransferModel
 (
- 	const word& type,
-    const dictionary& dict,
+    const dictionary& interfaceDict,
     const phaseModel& phase1,
     const phaseModel& phase2
 )
 :
-    interfaceDict_(dict),
+    interfaceDict_(interfaceDict),
     phase1_(phase1),
-    phase2_(phase2),
-	massTransferModelCoeffs_(interfaceDict_.optionalSubDict(type+"Coeffs"))
+    phase2_(phase2)
     //residualPhaseFraction_("residualPhaseFraction", dimless, dict),
     //residualSlip_("residualSlip", dimVelocity, dict)
 {}
@@ -60,12 +58,12 @@ Foam::massTransferModel::massTransferModel
 
 Foam::autoPtr<Foam::massTransferModel> Foam::massTransferModel::New
 (
-    const dictionary& dict,
+    const dictionary& interfaceDict,
     const phaseModel& phase1,
     const phaseModel& phase2
 )
 {
-    const word modelType(dict.get<word>("type"));
+    const word modelType(interfaceDict.get<word>("type"));
 
     Info<< "Selecting massTransferModel for phase "
         << phase1.name()
@@ -78,14 +76,19 @@ Foam::autoPtr<Foam::massTransferModel> Foam::massTransferModel::New
     {
         FatalIOErrorInLookup
         (
-            dict,
+            interfaceDict,
             "massTransferModel",
             modelType,
             *dictionaryConstructorTablePtr_
         ) << exit(FatalIOError);
     }
 
-    return ctorPtr(dict, phase1, phase2);
+    return ctorPtr
+	(
+	 	interfaceDict,
+		phase1,
+		phase2
+	);
 }
 
 

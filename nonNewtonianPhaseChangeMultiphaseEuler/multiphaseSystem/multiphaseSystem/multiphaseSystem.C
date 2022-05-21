@@ -915,14 +915,10 @@ Foam::tmp<Foam::volScalarField>Foam::multiphaseSystem::mtmSp
 	(
 		;
     	mtmIter.good() && cIter.good();
-		//mtmIter != massTransferModels.end() && cIter != massTransferCoeffFields.end();
 		++mtmIter, ++cIter
 	)
 	{
-		if
-		(
-			&phase == &mtmIter()->phase1()
-		)
+		if (&phase == &mtmIter()->phase1())
 		{
 			const volScalarField Sp = *cIter();
 			tmtmSp.ref() = -Sp;
@@ -963,14 +959,10 @@ Foam::tmp<Foam::volScalarField>Foam::multiphaseSystem::mtmSu
 	(
 		;
     	mtmIter.good() && cIter.good();
-		//mtmIter != massTransferModels.end() && cIter != massTransferCoeffFields.end();
 		++mtmIter, ++cIter
 	)
 	{
-		if
-		(
-			&phase == &mtmIter()->phase2()
-		)
+		if (&phase == &mtmIter()->phase2())
 		{
 			const phaseModel *phasePtr = &mtmIter()->phase2();
 			const volScalarField alpha = *phasePtr;

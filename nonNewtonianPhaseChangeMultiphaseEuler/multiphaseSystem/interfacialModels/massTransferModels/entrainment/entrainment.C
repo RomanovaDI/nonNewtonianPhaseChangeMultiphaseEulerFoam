@@ -56,9 +56,12 @@ Foam::massTransferModels::entrainment::entrainment
     const phaseModel& phase2
 )
 :
-    massTransferModel(typeName, interfaceDict, phase1, phase2),
-	entrCoeff_("entrCoeff", dimless, massTransferModelCoeffs_.lookup("entrCoeff"))
-{}
+    massTransferModel(interfaceDict, phase1, phase2),
+	dict_(interfaceDict.optionalSubDict("entrainmentCoeffs")),
+	entrCoeff_("entrCoeff", dimless, dict_)
+{
+	Info << "entrCoeff = " << entrCoeff_ << endl; 
+}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
@@ -66,16 +69,10 @@ Foam::massTransferModels::entrainment::entrainment
 Foam::tmp<Foam::volScalarField> Foam::massTransferModels::entrainment::K() const
 {
 	tmp<volScalarField> Kvalue(
-		//min(
-		//	mag(phase1_.strainRateTensor2Inv()),
-		//	dimensionedScalar(dimensionSet(0, 0, -2, 0, 0), One)
-		//	)*
 		mag(phase1_.strainRateTensor2Inv())*
 		dimensionedScalar(dimensionSet(0,0,1,0,0),1)*
 		entrCoeff_
 		);
-	//volScalarField Kvalue(max(phase1_.strainRateTensor2Inv().val.value(),scalar(0)));
-	//volScalarField Kvalue(max(phase1_.strainRateTensor2Inv(),scalar(0)));
     
 	return Kvalue;
 }

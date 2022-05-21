@@ -57,6 +57,7 @@ class entrainment
     public massTransferModel
 {
     // Private data
+	const dictionary& dict_;
 	dimensionedScalar entrCoeff_;
 
 public:

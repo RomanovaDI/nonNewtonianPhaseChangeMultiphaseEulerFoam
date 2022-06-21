@@ -241,7 +241,11 @@ void Foam::phaseModel::calcStrainRateTensor2Inv()
 {
     Info<< "phaseModel.calcStrainRateTensor2Inv()" << nl << endl;
 	volScalarField& alpha = *this;
-	invariantI(strainRateTensor2Inv_, alpha * symm(fvc::grad(U_)));
+	invariantII(strainRateTensor2Inv_, symm(fvc::grad(U_)));
+	strainRateTensor2Inv_ *= alpha;
+    strainRateTensor2Inv_.clip(0, 1);
+//    Info<< "phaseModel.calcStrainRateTensor2Inv(): maxSR = " << strainRateTensor2Inv_.clip(0, 1) << nl << endl;
+//	strainRateTensor2Inv_ /= max(strainRateTensor2Inv_.max();
 }
 
 

@@ -65,7 +65,7 @@ void Foam::invariantII
 {
     auto input = st.ref().primitiveField();
 	forAll (input, i)
-		result[i] = invariantII(input[i]);
+		result[i] = mag(invariantII(input[i]));
 }
 
 

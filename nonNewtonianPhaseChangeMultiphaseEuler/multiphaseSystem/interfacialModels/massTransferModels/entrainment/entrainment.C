@@ -69,8 +69,12 @@ Foam::massTransferModels::entrainment::entrainment
 Foam::tmp<Foam::volScalarField> Foam::massTransferModels::entrainment::K() const
 {
 	tmp<volScalarField> Kvalue(
-		mag(phase1_.strainRateTensor2Inv())*
-		dimensionedScalar(dimensionSet(0,0,1,0,0),1)*
+		//min(
+		//	dimensionedScalar(dimensionSet(0,0,-2,0,0), 1),
+		//	phase1_.strainRateTensor2Inv()
+		//	)*
+		phase1_.strainRateTensor2Inv()*
+		dimensionedScalar(dimensionSet(0,0,1,0,0),-1)*
 		entrCoeff_
 		);
     
@@ -78,4 +82,4 @@ Foam::tmp<Foam::volScalarField> Foam::massTransferModels::entrainment::K() const
 }
 
 
-// ************************************************************************* //
+// ************************************************************************* /

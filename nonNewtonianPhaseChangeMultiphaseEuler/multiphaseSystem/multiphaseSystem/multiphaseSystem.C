@@ -166,7 +166,7 @@ void Foam::multiphaseSystem::solveAlphas()
 
         phase.correctInflowOutflow(alphaPhiCorr);
 
-		// Adding Sp and Su terms t o MULES limit
+		// Adding Sp and Su terms to MULES limit
 		const volScalarField Sp(mtmSp(phase, massTransferCoeffs()));
 		const volScalarField Su(mtmSu(phase, massTransferCoeffs()));
 
@@ -921,7 +921,7 @@ Foam::tmp<Foam::volScalarField>Foam::multiphaseSystem::mtmSp
 		if (&phase == &mtmIter()->phase1())
 		{
 			const volScalarField Sp = *cIter();
-			tmtmSp.ref() = -Sp;
+			tmtmSp.ref() = Sp;
 		}
 	}
 	return tmtmSp;
@@ -964,10 +964,10 @@ Foam::tmp<Foam::volScalarField>Foam::multiphaseSystem::mtmSu
 	{
 		if (&phase == &mtmIter()->phase2())
 		{
-			const phaseModel *phasePtr = &mtmIter()->phase2();
+			const phaseModel *phasePtr = &mtmIter()->phase1();
 			const volScalarField alpha = *phasePtr;
 			const volScalarField Su = *cIter();
-			tmtmSu.ref() = Su*alpha;
+			tmtmSu.ref() = Su*alpha*scalar(-1);
 		}
 	}
 	return tmtmSu;

@@ -290,18 +290,6 @@ public:
 			const massTransferCoeffFields& massTransferCoeffs
 		) const;
 
-        //- Return the sum of the mass transfer coefficients for the given phase
-        tmp<volScalarField> massTransferCoeff
-        (
-            const phaseModel& phase,
-            const massTransferCoeffFields& massTransferCoeffs
-        ) const;
-
-		tmp<volScalarField> massTransferCoeff
-		(
-    		const phaseModel& phase
-		) const;
-
         tmp<surfaceScalarField> surfaceTension(const phaseModel& phase) const;
 
         //- Indicator of the proximity of the interface
